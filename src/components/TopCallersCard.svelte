@@ -47,7 +47,7 @@
       align-items: center;
       font-size: 1rem;
       padding: 0.4rem 0;
-      color: #007acc;
+      color: #ff5c28;
       font-weight: bold;
     }
   
@@ -56,7 +56,7 @@
     }
   
     .calls {
-      color: #444;
+      color: #ff5c28;
       font-weight: normal;
     }
   </style>

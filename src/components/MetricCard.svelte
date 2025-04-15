@@ -25,6 +25,6 @@
       margin: 0.5rem 0 0;
       font-size: 2rem;
       font-weight: bold;
-      color: #007acc;
+      color: #ff5c28;
     }
   </style>
