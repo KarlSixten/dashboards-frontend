@@ -1,4 +1,5 @@
 <script>
+    import logo from './assets/logo.png'
     import { onMount } from "svelte";
     import MetricCard from "../../components/MetricCard.svelte";
     import TopCallersCard from "../../components/TopCallersCard.svelte";
@@ -18,13 +19,14 @@
     });
   </script>
   
+<header>
+    <img src={logo} alt="Clerk Logo" />
+</header>
+  
   {#if weeklyCalls !== null && weeklyContactedLeads !== null && weeklyTopCallers !== null}
     <div class="grid">
       <MetricCard title="Outbound Calls This Week" value={weeklyCalls} />
-      <MetricCard
-        title="Leads Contacted This Week"
-        value={weeklyContactedLeads}
-      />
+      <MetricCard title="Leads Contacted This Week" value={weeklyContactedLeads}/>
       <TopCallersCard callers={weeklyTopCallers} />
     </div>
   {:else}
