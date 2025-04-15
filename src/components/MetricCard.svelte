@@ -23,7 +23,7 @@
     }
     p {
       margin: 0.5rem 0 0;
-      font-size: 2rem;
+      font-size: 4rem;
       font-weight: bold;
       color: #ff5c28;
     }
