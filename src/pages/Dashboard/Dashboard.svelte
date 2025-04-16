@@ -7,6 +7,8 @@
     let weeklyCalls;
     let weeklyContactedLeads;
     let weeklyTopCallers;
+    let weeklyValueWon;
+    let yearlyValueWon;
 
     let lastUpdated;
 
@@ -18,9 +20,11 @@
         weeklyCalls = data.weeklyCalls;
         weeklyContactedLeads = data.weeklyContactedLeads;
         weeklyTopCallers = data.weeklyTopCallers;
+        weeklyValueWon = data.weeklyValueWon;
+        yearlyValueWon = data.yearlyValueWon;
 
         lastUpdated = new Date();
-    };
+    }
 
     onMount(() => {
         fetchDashboardData();
@@ -40,9 +44,19 @@
     function formatTime(date) {
         return date?.toLocaleTimeString([], {
             hour: "2-digit",
-            minute: "2-digit"
+            minute: "2-digit",
         });
-    };
+    }
+
+    function formatValueNumber(value) {
+        const rounded = Math.floor(value / 100); // Remove the last 2 digits (assumed decimals)
+
+        if (rounded >= 1_000_000)
+            return (rounded / 1_000_000).toFixed(1).replace(/\.0$/, "") + "M";
+        if (rounded >= 1_000)
+            return (rounded / 1_000).toFixed(1).replace(/\.0$/, "") + "K";
+        return rounded.toString();
+    }
 </script>
 
 <div class="dashboard-header">
@@ -50,7 +64,7 @@
     <img src={logo} alt="Logo" class="dashboard-logo" />
 </div>
 
-{#if weeklyCalls && weeklyContactedLeads && weeklyTopCallers}
+{#if weeklyCalls && weeklyContactedLeads && weeklyTopCallers && weeklyValueWon && yearlyValueWon}
     <div class="grid">
         <MetricCard title="Outbound Calls This Week" value={weeklyCalls} />
         <MetricCard
@@ -58,6 +72,50 @@
             value={weeklyContactedLeads}
         />
         <TopCallersCard callers={weeklyTopCallers} />
+        <MetricCard
+            title="Weekly Value Won🤑"
+            value={formatValueNumber(weeklyValueWon)}
+        />
+        <MetricCard
+            title="Yearly Value Won🤑"
+            value={formatValueNumber(yearlyValueWon)}
+        />
+        <MetricCard
+            title="Placeholder"
+            value="0"
+        />
+        <MetricCard
+            title="Placeholder"
+            value="0"
+        />
+        <MetricCard
+            title="Placeholder"
+            value="0"
+        />
+        <MetricCard
+            title="Placeholder"
+            value="0"
+        />
+        <MetricCard
+            title="Placeholder"
+            value="0"
+        />
+        <MetricCard
+            title="Placeholder"
+            value="0"
+        />
+        <MetricCard
+            title="Placeholder"
+            value="0"
+        />
+        <MetricCard
+            title="Placeholder"
+            value="0"
+        />
+        <MetricCard
+            title="Placeholder"
+            value="0"
+        />
     </div>
 {:else}
     <p>Loading...</p>
@@ -66,26 +124,26 @@
 <style>
     .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 1.5rem;
         margin-top: 2rem;
     }
     .dashboard-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-    position: relative;
-  }
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        position: relative;
+    }
 
-  .dashboard-logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+    .dashboard-logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 
-  .last-updated {
-    font-size: 0.9rem;
-    color: #666;
-  }
+    .last-updated {
+        font-size: 0.9rem;
+        color: #666;
+    }
 </style>

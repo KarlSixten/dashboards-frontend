@@ -23,10 +23,10 @@
 <style>
   .top-callers-card {
     background: #f9f9f9;
-    border-radius: 1rem;
-    padding: 1.5rem;
-    text-align: left;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 1rem;
+      padding: .5rem;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
 
   .title {
