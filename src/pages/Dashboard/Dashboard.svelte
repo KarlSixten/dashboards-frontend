@@ -2,13 +2,15 @@
     import logo from "./assets/logo.png";
     import { onMount, onDestroy } from "svelte";
     import MetricCard from "../../components/MetricCard.svelte";
-    import TopCallersCard from "../../components/TopCallersCard.svelte";
+    import TopThreeCard from "../../components/TopThreeCard.svelte";
 
     let weeklyCalls;
     let weeklyContactedLeads;
     let weeklyTopCallers;
     let weeklyValueWon;
     let yearlyValueWon;
+    let weeklyEmailsSent;
+    let weeklyTopEmailers;
 
     let lastUpdated;
 
@@ -22,6 +24,8 @@
         weeklyTopCallers = data.weeklyTopCallers;
         weeklyValueWon = data.weeklyValueWon;
         yearlyValueWon = data.yearlyValueWon;
+        weeklyEmailsSent = data.weeklyEmailsSent;
+        weeklyTopEmailers = data.weeklyTopEmailers;
 
         lastUpdated = new Date();
     }
@@ -64,14 +68,39 @@
     <img src={logo} alt="Logo" class="dashboard-logo" />
 </div>
 
-{#if weeklyCalls && weeklyContactedLeads && weeklyTopCallers && weeklyValueWon && yearlyValueWon}
+{#if weeklyCalls && weeklyContactedLeads && weeklyTopCallers && weeklyValueWon && yearlyValueWon && weeklyTopEmailers}
     <div class="grid">
+        <!--Calls-->
         <MetricCard title="Outbound Calls This Week" value={weeklyCalls} />
+        <TopThreeCard
+            title="Top Callers This Week"
+            topThree={weeklyTopCallers}
+        />
+        <MetricCard title="Placeholder" value="0" />
+        <MetricCard title="Placeholder" value="0" />
+        <MetricCard title="Placeholder" value="0" />
+
+        <!--Emails-->
+        <MetricCard title="Emails Sent This Week" value={weeklyEmailsSent} />
+        <TopThreeCard
+            title="Top Emailers This Week"
+            topThree={weeklyTopEmailers}
+        />
+        <MetricCard title="Placeholder" value="0" />
+        <MetricCard title="Placeholder" value="0" />
+        <MetricCard title="Placeholder" value="0" />
+
+        <!--Leads-->
         <MetricCard
             title="Leads Contacted This Week"
             value={weeklyContactedLeads}
         />
-        <TopCallersCard callers={weeklyTopCallers} />
+        <MetricCard title="Placeholder" value="0" />
+        <MetricCard title="Placeholder" value="0" />
+        <MetricCard title="Placeholder" value="0" />
+        <MetricCard title="Placeholder" value="0" />
+
+        <!--Value-->
         <MetricCard
             title="Weekly Value Won🤑"
             value={formatValueNumber(weeklyValueWon)}
@@ -80,42 +109,9 @@
             title="Yearly Value Won🤑"
             value={formatValueNumber(yearlyValueWon)}
         />
-        <MetricCard
-            title="Placeholder"
-            value="0"
-        />
-        <MetricCard
-            title="Placeholder"
-            value="0"
-        />
-        <MetricCard
-            title="Placeholder"
-            value="0"
-        />
-        <MetricCard
-            title="Placeholder"
-            value="0"
-        />
-        <MetricCard
-            title="Placeholder"
-            value="0"
-        />
-        <MetricCard
-            title="Placeholder"
-            value="0"
-        />
-        <MetricCard
-            title="Placeholder"
-            value="0"
-        />
-        <MetricCard
-            title="Placeholder"
-            value="0"
-        />
-        <MetricCard
-            title="Placeholder"
-            value="0"
-        />
+        <MetricCard title="Placeholder" value="0" />
+        <MetricCard title="Placeholder" value="0" />
+        <MetricCard title="Placeholder" value="0" />
     </div>
 {:else}
     <p>Loading...</p>

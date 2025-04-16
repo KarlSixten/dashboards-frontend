@@ -1,19 +1,20 @@
 <script>
-  export let callers = [];
+  export let title;
+  export let topThree = [];
 
   const medals = ["🥇", "🥈", "🥉"];
 </script>
 
-<div class="top-callers-card">
-  <h2 class="title">Top Callers This Week</h2>
+<div class="top-three-card">
+  <h2 class="title">{title}</h2>
   <ul>
-    {#each callers as caller, i}
+    {#each topThree as person, i}
       <li>
         <span class="name">
-          {medals[i] || `#${i + 1}`} {caller.name}
+          {medals[i] || `#${i + 1}`} {person.name}
         </span>
-        <span class="calls">
-          {caller.calls}
+        <span class="count">
+          {person.calls || person.emails}
         </span>
       </li>
     {/each}
@@ -21,7 +22,7 @@
 </div>
 
 <style>
-  .top-callers-card {
+  .top-three-card {
     background: #f9f9f9;
       border-radius: 1rem;
       padding: .5rem;
@@ -57,7 +58,7 @@
     text-align: left;
   }
 
-  .calls {
+  .count {
     color: #ff5c28;
     font-weight: normal;
   }
