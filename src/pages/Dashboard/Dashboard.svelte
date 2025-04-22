@@ -4,6 +4,8 @@
     import MetricCard from "../../components/MetricCard.svelte";
     import TopThreeCard from "../../components/TopThreeCard.svelte";
 
+    const group = 'sales'; // Hardcoded for nu
+
     let weeklyCalls;
     let weeklyContactedLeads;
     let weeklyTopCallers;
@@ -24,7 +26,7 @@
         weeklyTopEmailers != null;
 
     async function fetchDashboardData() {
-        const res = await fetch("http://localhost:8080/api/dashboard-data/sales");
+        const res = await fetch(`http://localhost:8080/api/dashboard-data/${group}`);
         const json = await res.json();
         const data = json.data;
 
@@ -73,8 +75,9 @@
 </script>
 
 <div class="dashboard-header">
-    <div class="last-updated">Last updated: {formatTime(lastUpdated)}</div>
+    <h2 id="group">{group.toUpperCase()}</h2>
     <img src={logo} alt="Logo" class="dashboard-logo" />
+    <div class="last-updated">Last updated: {formatTime(lastUpdated)}</div>
 </div>
 
 {#if dataReady}
@@ -149,6 +152,9 @@
 
     .last-updated {
         font-size: 0.9rem;
+        color: #666;
+    }
+    #group {
         color: #666;
     }
 </style>
