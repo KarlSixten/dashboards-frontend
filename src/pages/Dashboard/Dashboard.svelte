@@ -14,6 +14,15 @@
 
     let lastUpdated;
 
+    $: dataReady =
+        weeklyCalls != null &&
+        weeklyContactedLeads != null &&
+        weeklyTopCallers != null &&
+        weeklyValueWon != null &&
+        yearlyValueWon != null &&
+        weeklyEmailsSent != null &&
+        weeklyTopEmailers != null;
+
     async function fetchDashboardData() {
         const res = await fetch("http://localhost:8080/api/dashboard-data");
         const json = await res.json();
@@ -53,7 +62,7 @@
     }
 
     function formatValueNumber(value) {
-        const rounded = Math.floor(value / 100); // Remove the last 2 digits (assumed decimals)
+        const rounded = Math.floor(value / 100);
 
         if (rounded >= 1_000_000)
             return (rounded / 1_000_000).toFixed(1).replace(/\.0$/, "") + "M";
@@ -68,7 +77,7 @@
     <img src={logo} alt="Logo" class="dashboard-logo" />
 </div>
 
-{#if weeklyCalls && weeklyContactedLeads && weeklyTopCallers && weeklyValueWon && yearlyValueWon && weeklyTopEmailers}
+{#if dataReady}
     <div class="grid">
         <!--Calls-->
         <MetricCard title="Outbound Calls This Week" value={weeklyCalls} />
