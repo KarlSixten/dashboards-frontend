@@ -14,7 +14,7 @@
           {medals[i] || `#${i + 1}`} {person.name}
         </span>
         <span class="count">
-          {person.calls || person.emails}
+          {person.count}
         </span>
       </li>
     {/each}

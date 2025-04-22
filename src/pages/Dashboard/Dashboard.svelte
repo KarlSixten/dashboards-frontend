@@ -24,7 +24,7 @@
         weeklyTopEmailers != null;
 
     async function fetchDashboardData() {
-        const res = await fetch("http://localhost:8080/api/dashboard-data");
+        const res = await fetch("http://localhost:8080/api/dashboard-data/sales");
         const json = await res.json();
         const data = json.data;
 
