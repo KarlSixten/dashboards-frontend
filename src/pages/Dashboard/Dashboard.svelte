@@ -3,8 +3,17 @@
     import { onMount, onDestroy } from "svelte";
     import MetricCard from "../../components/MetricCard.svelte";
     import TopThreeCard from "../../components/TopThreeCard.svelte";
+    import GraphCard from "../../components/GraphCard.svelte";
 
     const group = 'sales'; // Hardcoded for nu
+
+    const weeklyCallDataPoints = [
+    { label: 'Mon', value: 10 },
+    { label: 'Tue', value: 15 },
+    { label: 'Wed', value: 12 },
+    { label: 'Thu', value: 18 },
+    { label: 'Fri', value: 14 }
+  ];
 
     let weeklyCalls;
     let weeklyContactedLeads;
@@ -82,6 +91,8 @@
 
 {#if dataReady}
     <div class="grid">
+        <GraphCard title="Weekly Calls Trend" dataPoints={weeklyCallDataPoints} />
+
         <!--Calls-->
         <MetricCard title="Outbound Calls This Week" value={weeklyCalls} />
         <TopThreeCard
