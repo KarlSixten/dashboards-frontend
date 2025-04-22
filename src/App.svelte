@@ -3,4 +3,4 @@
 
 </script>
 
-<Dashboard></Dashboard>
+<Dashboard group="sales"></Dashboard>

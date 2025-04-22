@@ -1,5 +1,6 @@
 <script>
     export let title;
+    export let valueDescription;
     export let dataPoints = [];
 
     import { onMount, onDestroy } from "svelte";
@@ -16,7 +17,7 @@
                     labels: dataPoints.map((dp) => dp.label),
                     datasets: [
                         {
-                            label: title,
+                            label: valueDescription,
                             data: dataPoints.map((dp) => dp.value),
                             backgroundColor: "#ff5c28", // Clerk orange
                         },

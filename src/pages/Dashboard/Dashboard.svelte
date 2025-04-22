@@ -5,15 +5,7 @@
     import TopThreeCard from "../../components/TopThreeCard.svelte";
     import GraphCard from "../../components/GraphCard.svelte";
 
-    const group = 'sales'; // Hardcoded for nu
-
-    const weeklyCallDataPoints = [
-    { label: 'Mon', value: 10 },
-    { label: 'Tue', value: 15 },
-    { label: 'Wed', value: 12 },
-    { label: 'Thu', value: 18 },
-    { label: 'Fri', value: 14 }
-  ];
+    export let group;
 
     let weeklyCalls;
     let weeklyContactedLeads;
@@ -22,6 +14,7 @@
     let yearlyValueWon;
     let weeklyEmailsSent;
     let weeklyTopEmailers;
+    let weeklyValueWonPerDay = [];
 
     let lastUpdated;
 
@@ -32,7 +25,8 @@
         weeklyValueWon != null &&
         yearlyValueWon != null &&
         weeklyEmailsSent != null &&
-        weeklyTopEmailers != null;
+        weeklyTopEmailers != null && 
+        weeklyValueWonPerDay.length > 0;
 
     async function fetchDashboardData() {
         const res = await fetch(`http://localhost:8080/api/dashboard-data/${group}`);
@@ -42,7 +36,11 @@
         weeklyCalls = data.weeklyCalls;
         weeklyContactedLeads = data.weeklyContactedLeads;
         weeklyTopCallers = data.weeklyTopCallers;
-        weeklyValueWon = data.weeklyValueWon;
+        weeklyValueWon = data.weeklyValueWon.total;
+        weeklyValueWonPerDay = data.weeklyValueWon.perDay.map(item => ({
+            label: item.day,
+            value: item.value
+        })) || [];
         yearlyValueWon = data.yearlyValueWon;
         weeklyEmailsSent = data.weeklyEmailsSent;
         weeklyTopEmailers = data.weeklyTopEmailers;
@@ -91,7 +89,6 @@
 
 {#if dataReady}
     <div class="grid">
-        <GraphCard title="Weekly Calls Trend" dataPoints={weeklyCallDataPoints} />
 
         <!--Calls-->
         <MetricCard title="Outbound Calls This Week" value={weeklyCalls} />
@@ -99,9 +96,6 @@
             title="Top Callers This Week"
             topThree={weeklyTopCallers}
         />
-        <MetricCard title="Placeholder" value="0" />
-        <MetricCard title="Placeholder" value="0" />
-        <MetricCard title="Placeholder" value="0" />
 
         <!--Emails-->
         <MetricCard title="Emails Sent This Week" value={weeklyEmailsSent} />
@@ -109,32 +103,24 @@
             title="Top Emailers This Week"
             topThree={weeklyTopEmailers}
         />
-        <MetricCard title="Placeholder" value="0" />
-        <MetricCard title="Placeholder" value="0" />
-        <MetricCard title="Placeholder" value="0" />
 
         <!--Leads-->
         <MetricCard
             title="Leads Contacted This Week"
             value={weeklyContactedLeads}
         />
-        <MetricCard title="Placeholder" value="0" />
-        <MetricCard title="Placeholder" value="0" />
-        <MetricCard title="Placeholder" value="0" />
-        <MetricCard title="Placeholder" value="0" />
 
         <!--Value-->
         <MetricCard
-            title="Weekly Value Won🤑"
+            title="Weekly Value Won Total"
             value={formatValueNumber(weeklyValueWon)}
         />
+        <GraphCard title="Weekly Value Won" dataPoints={weeklyValueWonPerDay} valueDescription="Value" />
+
         <MetricCard
             title="Yearly Value Won🤑"
             value={formatValueNumber(yearlyValueWon)}
         />
-        <MetricCard title="Placeholder" value="0" />
-        <MetricCard title="Placeholder" value="0" />
-        <MetricCard title="Placeholder" value="0" />
     </div>
 {:else}
     <p>Loading...</p>
