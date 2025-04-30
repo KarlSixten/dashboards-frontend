@@ -39,7 +39,7 @@
         weeklyValueWon = data.weeklyValueWon.total;
         weeklyValueWonPerDay = data.weeklyValueWon.perDay.map(item => ({
             label: item.day,
-            value: item.value
+            value: Math.floor(item.value / 100) // Rounding, data from api has two extra digits for decimals
         })) || [];
         yearlyValueWon = data.yearlyValueWon;
         weeklyEmailsSent = data.weeklyEmailsSent;

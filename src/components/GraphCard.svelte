@@ -27,8 +27,14 @@
                     scales: {
                         y: {
                             beginAtZero: true,
+                            ticks: {
+                            callback: function(value) {
+                                return Number(value) / 1000 + "K";
+                            },
+                        },
                         },
                     },
+                    
                 },
             });
         }
