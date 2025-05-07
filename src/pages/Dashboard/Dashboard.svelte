@@ -1,9 +1,9 @@
 <script>
     import logo from "./assets/logo.png";
     import { onMount, onDestroy } from "svelte";
-    import MetricCard from "../../components/MetricCard.svelte";
-    import TopThreeCard from "../../components/TopThreeCard.svelte";
-    import GraphCard from "../../components/GraphCard.svelte";
+    import MetricCard from "../../components/MetricCard/MetricCard.svelte";
+    import TopThreeCard from "../../components/TopThreeCard/TopThreeCard.svelte";
+    import GraphCard from "../../components/GraphCard/GraphCard.svelte";
 
     export let group;
 
