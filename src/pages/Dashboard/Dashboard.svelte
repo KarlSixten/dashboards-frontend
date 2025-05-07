@@ -15,6 +15,8 @@
     let weeklyEmailsSent;
     let weeklyTopEmailers;
     let weeklyValueWonPerDay = [];
+    let averageCallTimeToday;
+    let totalCallTimeToday;
 
     let lastUpdated;
 
@@ -26,7 +28,9 @@
         yearlyValueWon != null &&
         weeklyEmailsSent != null &&
         weeklyTopEmailers != null && 
-        weeklyValueWonPerDay.length > 0;
+        weeklyValueWonPerDay.length > 0 &&
+        averageCallTimeToday != null &&
+        totalCallTimeToday != null;
 
     async function fetchDashboardData() {
         const res = await fetch(`http://localhost:8080/api/dashboard-data/${group}`);
@@ -44,6 +48,8 @@
         yearlyValueWon = data.yearlyValueWon;
         weeklyEmailsSent = data.weeklyEmailsSent;
         weeklyTopEmailers = data.weeklyTopEmailers;
+        averageCallTimeToday = (data.averageCallTimeToday / 60).toFixed(1).replace(".", ",");
+        totalCallTimeToday = (data.totalCallTimeToday / 60).toFixed(1).replace(".", ",");
 
         lastUpdated = new Date();
     }
@@ -96,6 +102,8 @@
             title="Top Callers This Week"
             topThree={weeklyTopCallers}
         />
+        <MetricCard title="Average Call Length Today" value="{averageCallTimeToday} min."></MetricCard>
+        <MetricCard title="Total Call Time Today" value="{totalCallTimeToday} min."></MetricCard>
 
         <!--Emails-->
         <MetricCard title="Emails Sent This Week" value={weeklyEmailsSent} />
